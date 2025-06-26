@@ -36,8 +36,8 @@ export function AdminSetup() {
   const checkAdminStatus = async () => {
     setChecking(true);
     try {
-      // Check if user exists and their status
-      const { data: profiles, error } = await supabase
+      // Check if user exists and their status - using explicit typing to work around type issues
+      const { data: profiles, error } = await (supabase as any)
         .from('profiles')
         .select('*')
         .eq('email', 'srikanth@melodymocktail.com');
@@ -53,7 +53,7 @@ export function AdminSetup() {
       }
 
       const userExists = profiles && profiles.length > 0;
-      const isAdmin = userExists && profiles[0].role === 'admin';
+      const isAdmin = userExists && profiles[0]?.role === 'admin';
 
       setAdminStatus({
         userExists,

@@ -46,7 +46,8 @@ const Admin = () => {
 
   const checkAdminStatus = async (userId: string) => {
     try {
-      const { data: profile, error } = await supabase
+      // Using explicit typing to work around type issues
+      const { data: profile, error } = await (supabase as any)
         .from('profiles')
         .select('role')
         .eq('id', userId)

@@ -27,8 +27,8 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
 
   const loadStats = async () => {
     try {
-      // Get user count from profiles table
-      const { count: userCount, error } = await supabase
+      // Get user count from profiles table - using explicit typing to work around type issues
+      const { count: userCount, error } = await (supabase as any)
         .from('profiles')
         .select('*', { count: 'exact', head: true });
 

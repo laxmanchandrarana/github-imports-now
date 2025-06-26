@@ -23,7 +23,8 @@ export function useUserManagement(onStatsUpdate: () => void) {
 
   const loadUsers = async () => {
     try {
-      const { data, error } = await supabase
+      // Using explicit typing to work around type issues
+      const { data, error } = await (supabase as any)
         .from('profiles')
         .select('*')
         .order('created_at', { ascending: false });
@@ -37,7 +38,7 @@ export function useUserManagement(onStatsUpdate: () => void) {
         });
       } else {
         // Type assertion to ensure the role property matches our expected union type
-        const typedUsers = (data || []).map(user => ({
+        const typedUsers = (data || []).map((user: any) => ({
           ...user,
           role: user.role as 'admin' | 'editor' | 'user'
         }));
@@ -66,8 +67,8 @@ export function useUserManagement(onStatsUpdate: () => void) {
 
       if (authError) throw authError;
 
-      // Update profile with additional info
-      const { error: profileError } = await supabase
+      // Update profile with additional info - using explicit typing
+      const { error: profileError } = await (supabase as any)
         .from('profiles')
         .update({
           full_name: formData.fullName,
@@ -99,7 +100,8 @@ export function useUserManagement(onStatsUpdate: () => void) {
     if (!editingUser) return;
 
     try {
-      const { error } = await supabase
+      // Using explicit typing to work around type issues
+      const { error } = await (supabase as any)
         .from('profiles')
         .update({
           full_name: formData.fullName,
