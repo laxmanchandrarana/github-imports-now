@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -27,8 +26,8 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
 
   const loadStats = async () => {
     try {
-      // Get user count from profiles table - using explicit typing to work around type issues
-      const { count: userCount, error } = await (supabase as any)
+      // Get user count from profiles table
+      const { count: userCount, error } = await supabase
         .from('profiles')
         .select('*', { count: 'exact', head: true });
 

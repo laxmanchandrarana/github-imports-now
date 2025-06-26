@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
@@ -23,8 +22,7 @@ export function useUserManagement(onStatsUpdate: () => void) {
 
   const loadUsers = async () => {
     try {
-      // Using explicit typing to work around type issues
-      const { data, error } = await (supabase as any)
+      const { data, error } = await supabase
         .from('profiles')
         .select('*')
         .order('created_at', { ascending: false });
@@ -67,8 +65,8 @@ export function useUserManagement(onStatsUpdate: () => void) {
 
       if (authError) throw authError;
 
-      // Update profile with additional info - using explicit typing
-      const { error: profileError } = await (supabase as any)
+      // Update profile with additional info
+      const { error: profileError } = await supabase
         .from('profiles')
         .update({
           full_name: formData.fullName,
@@ -100,8 +98,7 @@ export function useUserManagement(onStatsUpdate: () => void) {
     if (!editingUser) return;
 
     try {
-      // Using explicit typing to work around type issues
-      const { error } = await (supabase as any)
+      const { error } = await supabase
         .from('profiles')
         .update({
           full_name: formData.fullName,

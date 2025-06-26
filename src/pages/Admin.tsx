@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { AdminDashboard } from "@/components/AdminDashboard";
 import { AdminLogin } from "@/components/AdminLogin";
@@ -46,8 +45,7 @@ const Admin = () => {
 
   const checkAdminStatus = async (userId: string) => {
     try {
-      // Using explicit typing to work around type issues
-      const { data: profile, error } = await (supabase as any)
+      const { data: profile, error } = await supabase
         .from('profiles')
         .select('role')
         .eq('id', userId)

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -36,8 +35,8 @@ export function AdminSetup() {
   const checkAdminStatus = async () => {
     setChecking(true);
     try {
-      // Check if user exists and their status - using explicit typing to work around type issues
-      const { data: profiles, error } = await (supabase as any)
+      // Check if user exists and their status
+      const { data: profiles, error } = await supabase
         .from('profiles')
         .select('*')
         .eq('email', 'srikanth@melodymocktail.com');
